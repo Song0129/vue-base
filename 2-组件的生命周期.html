@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript">
+			const Bar = {
+				template: `<div>bar
+          </div>`,
+				beforeCreate() {
+					console.log("bar - beforeCreate");
+				},
+				created() {
+					console.log("bar - created");
+				},
+				beforeMount() {
+					console.log("bar - beforeMount");
+				},
+				mounted() {
+					console.log("bar - mounted");
+					// window.addEventListener("")
+				},
+				beforeUpdate() {
+					console.log("bar - beforeUpdate");
+				},
+				updated() {
+					console.log("bar - updated");
+					// dom -> updated
+				},
+				beforeDestroy() {
+					console.log("bar - beforeDestroy");
+				},
+				destroyed() {
+					console.log("bar - destroyed");
+					// window.removeEventListener("");
+				},
+			};
+			const Foo = {
+				components: {
+					Bar,
+				},
+				template: `<div>foo
+          {{count}}
+          <button @click="count++">add</button>
+          <Bar></Bar>
+          </div>`,
+				data() {
+					return {
+						count: 0,
+					};
+				},
+				beforeCreate() {
+					console.log("beforeCreate");
+				},
+				created() {
+					console.log("created");
+					// fetch api
+				},
+				beforeMount() {
+					console.log("beforeMount");
+				},
+				mounted() {
+					console.log("mounted");
+					// window.addEventListener("")
+					// 到此当前组件子组件都已经 mounted 
+				},
+				beforeUpdate() {
+					console.log("beforeUpdate");
+				},
+				updated() {
+					console.log("updated");
+					// dom -> updated
+				},
+				beforeDestroy() {
+					console.log("beforeDestroy");
+				},
+				destroyed() {
+					console.log("destroyed");
+					// window.removeEventListener("");
+				},
+			};
+			const app = new Vue({
+				el: "#app",
+				components: {
+					Foo,
+				},
+				data() {
+					return {
+						isFoo: true,
+					};
+				},
+				template: `<div>app
+          <Foo v-if="isFoo"></Foo>
+          </div>`,
+			});
+		</script>
+	</body>
+</html>

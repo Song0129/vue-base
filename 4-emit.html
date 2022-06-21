@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript">
+			const Foo = {
+				props: {
+					title: {
+						type: String,
+					},
+				},
+				template: `<div>foo---{{title}}
+			       <div>
+			         <button @click="toParent">to parent</button>
+			         <button @click="handleChangeTitle">change title</button>
+			       </div>
+			       </div>`,
+				methods: {
+					toParent() {
+						this.$emit("change-name", 1, 2);
+					},
+					handleChangeTitle() {
+						this.$emit("change-title", "newTitle");
+					},
+				},
+			};
+			const app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						fooTitle: "heihei",
+					};
+				},
+				components: {
+					Foo,
+				},
+				template: `<div>app
+			       <Foo :title="fooTitle" @change-name="handleChange" @change-title="handleChangeTitle"></Foo>
+			       </div>`,
+				methods: {
+					handleChange(a, b) {
+						console.log(a, b);
+						console.log("change - handle - from - foo");
+					},
+					handleChangeTitle(val) {
+						this.fooTitle = val;
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
