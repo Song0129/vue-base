@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript">
+			// mixin
+			// 1. 数据冲突时，组件数据优先
+			// 2. 同名钩子合并成数组，混入对象的钩子优先调用---生命周期钩子
+			// 3. 值为对象的选项，合并为同一个对象，冲突时取组件对象的值---methods  components
+
+			// 1. 局部
+			const fooMixin = {
+				data() {
+					return {
+						value: "foo - mixin",
+					};
+				},
+				mounted() {
+					console.log("foo - mixin mounted");
+				},
+				methods: {
+					getName() {
+						console.log("foo - getName - mixin");
+					},
+					getMixinName() {
+						console.log("foo - getMixinName");
+					},
+				},
+			};
+			// 2. 全局
+			// 每一个组件都会合并
+			Vue.mixin({
+				mounted() {
+					console.log("global mixin");
+				},
+			});
+			const Foo = {
+				mixins: [fooMixin],
+				data() {
+					return {
+						value: "foo - self",
+					};
+				},
+				mounted() {
+					console.log("foo - self");
+				},
+				template: `<div>foo
+          <button @click="getName">点击</button>
+          <button @click="getMixinName">点击</button>
+          {{value}}
+          </div>`,
+				methods: {
+					getName() {
+						// console.log("foo - getName - self");
+					},
+				},
+			};
+
+			const app = new Vue({
+				el: "#app",
+				components: {
+					Foo,
+				},
+				template: `<div>app
+          <Foo></Foo>
+          </div>`,
+			});
+		</script>
+	</body>
+</html>

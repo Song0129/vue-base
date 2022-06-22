@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript">
+			const MousemoveMixin = {
+				data() {
+					return {
+						x: 0,
+						y: 0,
+					};
+				},
+				mounted() {
+					window.addEventListener("mousemove", this.handleMousemove);
+				},
+				destroyed() {
+					window.removeEventListener("mousemove");
+				},
+				methods: {
+					handleMousemove(e) {
+						this.x = e.pageX;
+						this.y = e.pageY;
+					},
+				},
+			};
+
+			const Foo = {
+				mixins: [MousemoveMixin],
+				// mixins: [MousemoveMixin,fooMixin,barMixin],
+				// 1. 来源不清晰的问题---引入多个mixin 不确定x、y到底来自哪个mixin
+				// 2. 命名冲突的问题---多个mixin可能存在命名有冲突
+				template: `<div>foo x:{{x}} - y:{{y}}</div>`,
+			};
+			const Bar = {
+				mixins: [MousemoveMixin],
+				template: `<div>bar x:{{x}} - y:{{y}}</div>`,
+			};
+
+			const app = new Vue({
+				el: "#app",
+				components: {
+					Foo,
+					Bar,
+				},
+				template: `<div>app
+          <Foo></Foo>
+          <Bar></Bar>
+          </div>`,
+			});
+		</script>
+	</body>
+</html>
