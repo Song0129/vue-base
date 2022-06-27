@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/javascript">
+			// v-if v-for  官方提供的指令
+
+			// 自定义指令
+			// v-focus.a.b="value"   可以绑定值，可以加指令修饰符
+			Vue.directive("focus", {
+				bind() {
+					// 处理一些init的逻辑
+				},
+				inserted(el, binding) {
+					console.log(el, binding);
+					el.focus();
+				},
+			});
+
+			const Foo = {
+				data() {
+					return {
+						value: 123,
+					};
+				},
+				template: `<div>
+			       <input type="text" v-focus.a.b="value">
+			       </div>`,
+			};
+
+			const app = new Vue({
+				el: "#app",
+				components: {
+					Foo,
+				},
+				template: `<div>app
+			       <Foo></Foo>
+			       </div>`,
+			});
+		</script>
+	</body>
+</html>
