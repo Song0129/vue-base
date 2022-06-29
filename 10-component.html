@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="dynamic-component-app">
+			<button @click="changeComponent('Home')">Home</button>
+			<button @click="changeComponent('Post')">Post</button>
+			<button @click="changeComponent('Archive')">Archive</button>
+			<div>
+				<!-- <Home v-show="showComponent === 'Home'"></Home>
+				<Post v-show="showComponent === 'Post'"></Post>
+				<Archive v-show="showComponent === 'Archive'"></Archive> -->
+				<component :is="showComponent"></component>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// 1. 注册过的组件
+			// 2. options
+			Vue.component("Home", {
+				template: "<div>Home</div>",
+			});
+
+			Vue.component("Post", {
+				template: "<div>Post</div>",
+			});
+
+			Vue.component("Archive", {
+				template: "<div>Archive</div>",
+			});
+
+			const componentMap = {
+				Home: { template: "<div>Home</div>" },
+				Post: { template: "<div>Post</div>" },
+				Archive: { template: "<div>Archive</div>" },
+			};
+
+			const app = new Vue({
+				el: "#dynamic-component-app",
+				data() {
+					return {
+						msg: "hello world",
+						// showComponent: "Home",
+						// showComponent: {
+						// 	template: "<div>Post</div>",
+						// },
+						showComponent: componentMap["Home"],
+					};
+				},
+				methods: {
+					changeComponent(componentName) {
+						// this.showComponent = componentName;
+						this.showComponent = componentMap[componentName];
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
