@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./node_modules//vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="dynamic-component-app">
+			<button @click="changeComponent('Home')">Home</button>
+			<button @click="changeComponent('Post')">Post</button>
+			<button @click="changeComponent('Archive')">Archive</button>
+			<div>
+				<!-- <Home v-show="showComponent === 'Home'"></Home>
+				<Post v-show="showComponent === 'Post'"></Post>
+				<Archive v-show="showComponent === 'Archive'"></Archive> -->
+				<keep-alive include="Home">
+					<component :is="showComponent"></component>
+				</keep-alive>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// keep-alive 生命周期
+			// activated 激活
+			// deactivated 失效
+
+			// 接收字符串或正则表达式
+			// 1. include  缓存某组件
+			// 2. exclude  不缓存某组件
+
+			Vue.component("Home", {
+				template: `<div>Home
+          <input type="radio" name="gender" v-model="checked">女</input>
+          <input type="radio" name="gender" v-model="checked">男</input>
+          </div>`,
+				data() {
+					return {
+						checked: false,
+					};
+				},
+				activated() {
+					console.log("home-激活");
+				},
+				deactivated() {
+					console.log("home-失效");
+				},
+			});
+
+			Vue.component("Post", {
+				template: "<div>Post</div>",
+				activated() {
+					console.log("post-激活");
+				},
+				deactivated() {
+					console.log("post-失效");
+				},
+			});
+
+			Vue.component("Archive", {
+				template: "<div>Archive</div>",
+			});
+
+			const app = new Vue({
+				el: "#dynamic-component-app",
+				data() {
+					return {
+						msg: "hello world",
+						showComponent: "Home",
+					};
+				},
+				methods: {
+					changeComponent(componentName) {
+						this.showComponent = componentName;
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
