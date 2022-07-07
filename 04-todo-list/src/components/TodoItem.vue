@@ -1,8 +1,9 @@
 <template>
 	<div :class="classes">
 		{{ todo.text }}
-		<button @click="removeTodo">X</button>
+		<button id="removeBtn" @click="removeTodo">X</button>
 		<button @click="completeTodo">complete</button>
+		<slot></slot>
 	</div>
 </template>
 
