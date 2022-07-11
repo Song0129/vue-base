@@ -21,24 +21,64 @@ Vue.use(VueRouter);
 const router = new VueRouter({
 	routes: [
 		{
-			path: "/home",
-			// 命名视图 -> 兄弟关系
-			// 类似 slot 关系
-
-			// /home -> component
-			// component: Home,
-			// /home -> 多个 component
-			components: {
-				default: Home,
-				one: Foo,
-				two: Bar,
-			},
+			path: "/",
+			component: Home,
+			children: [
+				{
+					// 别名：相对路径 -> "jia"
+					// alias: "new-foo",
+					alias: ["new-foo", "one-foo", "two-foo"],
+					path: "foo",
+					component: Foo,
+				},
+				// {
+				// path: "new-foo",
+				// 重定向：相对路径 -> "foo"
+				// redirect: "foo",
+				// redirect(to) {
+				// 	console.log(to);
+				// 	// return "foo";
+				// 	return to.query.to;
+				// },
+				// },
+			],
 		},
+
+		// {
+		// 	path: "/jia",
+		// 	// 重定向：/ -> 绝对路径
+		// 	redirect: "/home",
+		// },
+
+		// {
+		// 	// 别名：相对路径 -> "/jia"
+		// 	// 访问地址 "/jia" -> 实际组件为 Home
+		// 	// 与重定向 redirect 不同的是地址栏不发生变化
+		//  // 别名可以有多个 定义为数组 ["new-foo","one-foo","two-foo"]
+		// 	alias: "/jia",
+		// 	path: "/home",
+		// 	// 命名视图 -> 兄弟关系
+		// 	// 类似 slot 关系
+
+		// 	// /home -> component
+		// 	// component: Home,
+		// 	// /home -> 多个 component
+		// 	components: {
+		// 		default: Home,
+		// 		one: Foo,
+		// 		two: Bar,
+		// 	},
+		// },
+
 		// 路由优先级问题：谁先配置，谁的优先级最高
 		// {
 		// 	path: "/user/zhangsan",
 		// 	component: Zhangsan,
 		// },
+		{
+			path: "/new-user/:id",
+			redirect: "/user/:id",
+		},
 		{
 			path: "/user/:id",
 			component: User,
@@ -71,6 +111,11 @@ const router = new VueRouter({
 			props(route) {
 				return { id: route.params.id };
 			},
+		},
+		// catch all redirect
+		{
+			path: "*",
+			redirect: "/",
 		},
 	],
 });
