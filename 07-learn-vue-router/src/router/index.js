@@ -6,6 +6,9 @@ import User from "../views/User.vue";
 // import Zhangsan from "../views/Zhangsan.vue";
 import Details from "../views/Details.vue";
 
+import Foo from "../views/Foo.vue";
+import Bar from "../views/Bar.vue";
+
 console.log(VueRouter);
 
 // use -> koa
@@ -19,7 +22,17 @@ const router = new VueRouter({
 	routes: [
 		{
 			path: "/home",
-			component: Home,
+			// 命名视图 -> 兄弟关系
+			// 类似 slot 关系
+
+			// /home -> component
+			// component: Home,
+			// /home -> 多个 component
+			components: {
+				default: Home,
+				one: Foo,
+				two: Bar,
+			},
 		},
 		// 路由优先级问题：谁先配置，谁的优先级最高
 		// {
@@ -29,6 +42,19 @@ const router = new VueRouter({
 		{
 			path: "/user/:id",
 			component: User,
+			children: [
+				// 嵌套路由 -> 父子关系
+				// 子路由 path 不应带"/"
+				// 不应该多层嵌套  一般为一层或两层
+				{
+					path: "foo",
+					component: Foo,
+				},
+				{
+					path: "bar",
+					component: Bar,
+				},
+			],
 		},
 		{
 			path: "/details/:id",

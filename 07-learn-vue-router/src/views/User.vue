@@ -1,5 +1,9 @@
 <template>
-	<div>user:{{ $route.params.id }}</div>
+	<div>
+		user:{{ $route.params.id }}
+
+		<router-view></router-view>
+	</div>
 </template>
 
 <script>
