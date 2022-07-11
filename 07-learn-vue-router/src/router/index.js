@@ -9,13 +9,21 @@ import Details from "../views/Details.vue";
 import Foo from "../views/Foo.vue";
 import Bar from "../views/Bar.vue";
 
-console.log(VueRouter);
+// console.log(VueRouter);
 
 // use -> koa
 // koa.use() -> 添加
 // 插件
 
-// Vue.component("router-view") 会全局注册该组件
+// Vue.component("RouterView",RouterView) 自动全局注册该组件 -> 路由承载
+// Vue.component("RouterLink",RouterLink) 自动全局注册该组件 -> 路由跳转
+
+const originalPush = VueRouter.prototype.push;
+
+VueRouter.prototype.push = function push(location) {
+	return originalPush.call(this, location).catch(err => err);
+};
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -80,6 +88,7 @@ const router = new VueRouter({
 			redirect: "/user/:id",
 		},
 		{
+			name: "User",
 			path: "/user/:id",
 			component: User,
 			children: [

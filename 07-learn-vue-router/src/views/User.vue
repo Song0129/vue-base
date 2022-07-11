@@ -2,7 +2,12 @@
 	<div>
 		user:{{ $route.params.id }}
 
-		<router-view></router-view>
+		<div>
+			<router-view></router-view>
+		</div>
+		<div>
+			<button @click="back">back</button>
+		</div>
 	</div>
 </template>
 
@@ -23,6 +28,17 @@
 		beforeRouteUpdate() {
 			// vue-router 提供的钩子函数
 			console.log(`before-route-update user api id: ${this.$route.params.id}`);
+		},
+		beforeRouteEnter(to, from, next) {
+			console.log("user enter");
+			next(vm => {});
+		},
+		methods: {
+			back() {
+				// 编程式导航
+				// this.$router.back();
+				this.$router.go(-1);
+			},
 		},
 	};
 </script>
