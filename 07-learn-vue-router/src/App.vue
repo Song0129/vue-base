@@ -3,12 +3,12 @@
 		<div>
 			<!-- <a href="/user/1">To User</a> -->
 			<!-- <router-link to="/user/1">To User</router-link> -->
-			<router-link :to="{ name: 'User', params: { id: 1 } }">To User</router-link>
+			<!-- <router-link :to="{ name: 'User', params: { id: 1 } }">To User</router-link> -->
 			<button @click="handleToUser">To User</button>
 		</div>
 		<router-view></router-view>
-		<router-view name="one"></router-view>
-		<router-view name="two"></router-view>
+		<!-- <router-view name="one"></router-view>
+		<router-view name="two"></router-view> -->
 	</div>
 </template>
 

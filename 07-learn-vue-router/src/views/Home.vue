@@ -1,6 +1,6 @@
 <template>
 	<div>
-		Home
+		Home123
 
 		<router-view></router-view>
 	</div>
@@ -8,9 +8,16 @@
 
 <script>
 	export default {
+		beforeRouteEnter(to, from, next) {
+			console.log("before-router-enter");
+			next();
+		},
+		// eslint-disable-next-line no-unused-vars
+		beforeRouteUpdate(to, from, next) {
+			console.log("before-router-update");
+		},
 		beforeRouteLeave(to, from, next) {
-			console.log("app leave to", to);
-			console.log("app leave from", from);
+			console.log("before-router-leave");
 			next();
 		},
 	};

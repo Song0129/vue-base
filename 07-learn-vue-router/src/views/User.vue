@@ -29,10 +29,10 @@
 			// vue-router 提供的钩子函数
 			console.log(`before-route-update user api id: ${this.$route.params.id}`);
 		},
-		beforeRouteEnter(to, from, next) {
-			console.log("user enter");
-			next(vm => {});
-		},
+		// beforeRouteEnter(to, from, next) {
+		// 	console.log("user enter");
+		// 	next(vm => {});
+		// },
 		methods: {
 			back() {
 				// 编程式导航

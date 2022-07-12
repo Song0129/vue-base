@@ -31,6 +31,10 @@ const router = new VueRouter({
 		{
 			path: "/",
 			component: Home,
+			beforeEnter(to, from, next) {
+				console.log("before-enter");
+				next();
+			},
 			children: [
 				{
 					// 别名：相对路径 -> "jia"
@@ -127,6 +131,21 @@ const router = new VueRouter({
 			redirect: "/",
 		},
 	],
+});
+
+router.beforeEach((to, from, next) => {
+	// console.log("to", to);
+	// console.log("from", from);
+	// console.log(next);
+	console.log("before-each");
+	next();
+});
+
+router.afterEach((to, from) => {
+	// console.log("to", to);
+	// console.log("from", from);
+	// console.log(next);
+	console.log("after-each");
 });
 
 export default router;
