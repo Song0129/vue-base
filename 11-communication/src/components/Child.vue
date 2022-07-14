@@ -3,6 +3,7 @@
 		Child
 		<div>title:{{ title }}---childMsg: {{ childMsg }}</div>
 		<button @click="toParent">To Parent</button>
+		<button @click="getParent">Get Parent</button>
 	</div>
 </template>
 
@@ -16,6 +17,10 @@
 			};
 		},
 		methods: {
+			getParent() {
+				console.log(this.$parent);
+				this.$parent.focus();
+			},
 			toParent() {
 				this.$emit("to-parent");
 			},
