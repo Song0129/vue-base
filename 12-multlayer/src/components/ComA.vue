@@ -2,6 +2,7 @@
 	<div>
 		ComA msg: {{ msg }}
 		<ComB :title="$attrs.title" @a="handleA" @b="handleB"></ComB>
+		<button @click="getChildren">get children</button>
 	</div>
 </template>
 
@@ -16,6 +17,7 @@
 		data() {
 			return {
 				msg: "",
+				componentChildren: [],
 			};
 		},
 		provide() {
@@ -36,6 +38,12 @@
 			},
 			setMsg(val) {
 				this.msg = val;
+			},
+			addChild(child) {
+				this.componentChildren.push(child);
+			},
+			getChildren() {
+				console.log(this.componentChildren);
 			},
 		},
 	};

@@ -7,12 +7,13 @@
 
 <script>
 	export default {
-		props: ["title"],
-		// inject: ["title", "ComA"],
+		// props: ["title"],
+		inject: ["title", "ComA"],
 		methods: {
 			getComA() {
 				console.log(this.ComA);
 				this.ComA.setMsg("from ComC");
+				this.ComA.addChild(this);
 			},
 		},
 	};
