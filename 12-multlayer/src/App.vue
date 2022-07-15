@@ -1,14 +1,17 @@
 <template>
 	<div id="app">
 		<ComA title="from app"></ComA>
+		<Button disabled></Button>
 	</div>
 </template>
 
 <script>
 	import ComA from "./components/ComA.vue";
+	import Button from "./components/Button.vue";
 	export default {
 		components: {
 			ComA,
+			Button,
 		},
 	};
 </script>

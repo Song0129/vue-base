@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<button></button>
+		<button v-bind="$attrs">click</button>
 	</div>
 </template>
 

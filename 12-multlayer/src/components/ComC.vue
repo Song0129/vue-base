@@ -7,8 +7,8 @@
 
 <script>
 	export default {
-		// props: ["title"],
-		inject: ["title", "ComA"],
+		props: ["title"],
+		// inject: ["title", "ComA"],
 		methods: {
 			getComA() {
 				console.log(this.ComA);
