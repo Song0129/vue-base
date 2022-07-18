@@ -8,6 +8,7 @@
 
 <script>
 	import ComB from "./ComB.vue";
+	import Bus from "../bus";
 	export default {
 		inheritAttrs: false,
 		components: {
@@ -28,8 +29,14 @@
 		},
 		mounted() {
 			console.log("ComA", this.$attrs);
+			// Bus.$on("init", this.init);
+			Bus.$once("init", this.init);
 		},
 		methods: {
+			init(val) {
+				console.log("init", val);
+				// Bus.$off("init");
+			},
 			handleA() {
 				console.log("AAAAAAAAAA");
 			},
