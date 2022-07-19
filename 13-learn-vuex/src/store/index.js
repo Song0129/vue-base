@@ -17,13 +17,50 @@ const store = new Vuex.Store({
 	mutations: {
 		changeUserName(state, { username }) {
 			console.log("change user name", username);
+
+			// setTimeout(() => {
+			// 	state.username = username;
+			// }, 5000);
+
 			state.username = username;
 		},
 
 		changeUserAge(state, { age }) {
 			console.log("change user age", age);
+
+			// setTimeout(() => {
+			// 	state.age = age;
+			// }, 2000);
+
 			state.age = age;
 		},
+	},
+
+	actions: {
+		changeUserName({ commit }, payload) {
+			console.log(commit);
+			console.log(payload);
+
+			setTimeout(() => {
+				commit("changeUserName", payload);
+			}, 2000);
+
+			// await fetch api
+			// await xxx
+		},
+		// changeUserName({ commit }, payload) {
+		// 	console.log(commit);
+		// 	console.log(payload);
+		// 	return new Promise((resolve, reject) => {
+		// 		setTimeout(() => {
+		// 			commit("changeUserName", payload);
+		// 			resolve();
+		// 		}, 2000);
+		// 	});
+
+		// 	// await fetch api
+		// 	// await xxx
+		// },
 	},
 
 	// 全局的计算属性

@@ -9,6 +9,7 @@
 		<div>
 			<button @click="changeUserName">changeUserName</button>
 			<button @click="changeUserAge">changeUserAge</button>
+			<button @click="asyncChangeUsername">async - ChangeUsername</button>
 		</div>
 	</div>
 </template>
@@ -52,6 +53,18 @@
 				// this.$store.state.age = 22;
 				this.$store.commit("changeUserAge", { age: 22 });
 			},
+
+			async asyncChangeUsername() {
+				await this.$store.dispatch("changeUserName", { username: "async - jerry" });
+
+				console.log("change user name ok");
+			},
+			// asyncChangeUsername() {
+			// 	const a = this.$store.dispatch("changeUserName", { username: "async - jerry" }).then(() => {
+			// 		console.log("change user name ok");
+			// 	});
+			// 	console.log("a", a);
+			// },
 		},
 	};
 </script>
