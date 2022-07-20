@@ -8,15 +8,28 @@
 </template>
 
 <script>
+	// import { mapState, mapGetters } from "vuex";
+
+	import { createNamespacedHelpers } from "vuex";
+	const { mapState, mapGetters } = createNamespacedHelpers("moduleA");
 	export default {
 		name: "App",
 		computed: {
-			count() {
-				return this.$store.state.moduleA.count;
-			},
-			doubleCount() {
-				return this.$store.getters["moduleA/doubleCount"];
-			},
+			// 传统方式
+			// count() {
+			// 	return this.$store.state.moduleA.count;
+			// },
+			// doubleCount() {
+			// 	return this.$store.getters["moduleA/doubleCount"];
+			// },
+
+			// map
+			// ...mapState("moduleA", ["count"]),
+			// ...mapGetters("moduleA", ["doubleCount"]),
+
+			// createNamespacedHelpers
+			...mapState(["count"]),
+			...mapGetters(["doubleCount"]),
 		},
 		mounted() {
 			console.log(this.$store.state);
