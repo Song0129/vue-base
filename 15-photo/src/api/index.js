@@ -9,5 +9,12 @@ export function fetchLogin({ username, password }) {
 }
 
 export function fetchGetphotos() {
-	return http.get("/api/getPhotos");
+	// return http.get("/api/getPhotos");
+	return http.get("http://localhost:8081/getPhotos");
+}
+
+export function fetchUpload(img) {
+	const data = new FormData();
+	data.append("img", img);
+	return http.post("http://localhost:8081/upload", data);
 }

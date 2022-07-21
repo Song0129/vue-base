@@ -15,6 +15,9 @@ const cors = require("koa2-cors");
 db.initDB();
 
 const app = new Koa();
+// 处理跨域问题
+app.use(cors());
+
 app.use(
 	koaBody({
 		multipart: true,
@@ -22,9 +25,6 @@ app.use(
 );
 app.use(serve(__dirname + "/static"));
 app.use(koaJwt({ secret: SECRET }).unless({ path: [/^\/login/] }));
-
-// 处理跨域问题
-app.use(cors());
 
 const router = new Router();
 

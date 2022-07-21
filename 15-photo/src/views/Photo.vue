@@ -8,11 +8,10 @@
 				</div>
 				<div class="btnContainer">
 					<span class="photoTitle">相册名称</span>
-					<button class="mybtn">上传照片</button>
+					<button class="mybtn" @click="showAddPhotoView = true">上传照片</button>
 				</div>
 			</div>
 
-			{{ photos }}
 			<div class="photoContainer">
 				<template v-for="item in photos">
 					<div class="photoItem" :key="item.id">
@@ -22,7 +21,7 @@
 				</template>
 			</div>
 		</div>
-		<AddPhotoView></AddPhotoView>
+		<AddPhotoView :visible.sync="showAddPhotoView" @upload-completed="handleUploadCompleted"></AddPhotoView>
 	</div>
 </template>
 
@@ -41,12 +40,19 @@
 		data() {
 			return {
 				photos: [],
+				showAddPhotoView: false,
 			};
+		},
+		methods: {
+			async handleUploadCompleted() {
+				const { data } = await fetchGetphotos();
+				this.photos = data.data.photos;
+			},
 		},
 	};
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 	.container {
 		width: 100%;
 		background: rgb(224, 240, 244);
@@ -326,9 +332,9 @@
 		font-size: 18px;
 	}
 
-	.loadContainer {
-		display: none;
-	}
+	// .loadContainer {
+	// 	display: none;
+	// }
 
 	.myProgress {
 		display: none;
