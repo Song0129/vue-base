@@ -7,7 +7,7 @@ module.exports = async ctx => {
 
 	const uploadPath = generateUploadPath(img.name);
 	saveImgToUpload(img, uploadPath);
-	console.log(generateToDbUploadPath(uploadPath));
+	console.log(ctx.state);
 	// 保存到db
 	const [rows] = await insertToDB({
 		imgUrl: generateToDbUploadPath(uploadPath),
@@ -25,7 +25,6 @@ module.exports = async ctx => {
 
 async function insertToDB({ imgUrl, name, uId }) {
 	const sql = uId ? `INSERT INTO photos (id,imgUrl,name,uId) VALUES  (0,?,?,?)` : `INSERT INTO photos (id,imgUrl,name,uId) VALUES  (0,?,?,0)`;
-	console.log(sql);
 	return await db.getDB().execute(sql, uId ? [imgUrl, name, uId] : [imgUrl, name]);
 }
 

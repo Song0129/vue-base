@@ -28,7 +28,6 @@
 </template>
 
 <script>
-	import { fetchGetphotos } from "../api/index";
 	import AddPhotoView from "../components/AddPhotoView.vue";
 	export default {
 		components: {
@@ -39,14 +38,17 @@
 		},
 		data() {
 			return {
-				photos: [],
 				showAddPhotoView: false,
 			};
 		},
+		computed: {
+			photos() {
+				return this.$store.state.photos;
+			},
+		},
 		methods: {
-			async updatePhotos() {
-				const { data } = await fetchGetphotos();
-				this.photos = data.data.photos;
+			updatePhotos() {
+				this.$store.dispatch("updatePhotos");
 			},
 			handleUploadCompleted() {
 				this.updatePhotos();

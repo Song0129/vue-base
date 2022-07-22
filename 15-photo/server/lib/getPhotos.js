@@ -1,17 +1,18 @@
 const { getDB } = require("./db");
 const PER_SIZE = 10;
 module.exports = async ctx => {
+	console.log(ctx.state);
+
 	const uId = ctx.state.user.uId || "";
 	let { p: currentPage } = ctx.query;
 
-	console.log(currentPage);
 	if (!currentPage) {
 		currentPage = 1;
 	}
 
 	const offset = (currentPage - 1) * PER_SIZE;
 	const limit = PER_SIZE;
-	console.log(offset, limit);
+	// console.log(offset, limit);
 	const sql = uId ? `SELECT * FROM photos WHERE uId=? LIMIT ?,?` : `SELECT * FROM photos LIMIT ?,?`;
 	const [rows] = await getDB().execute(sql, uId ? [uId, offset, limit] : [offset, limit]);
 

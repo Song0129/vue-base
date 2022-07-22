@@ -9,8 +9,8 @@ export function fetchLogin({ username, password }) {
 }
 
 export function fetchGetphotos() {
-	// return http.get("/api/getPhotos");
-	return http.get("http://localhost:8081/getPhotos");
+	return http.get("/api/getPhotos");
+	// return http.get("http://localhost:8081/getPhotos");
 }
 
 export function fetchUpload(img, cb) {
@@ -25,5 +25,10 @@ export function fetchUpload(img, cb) {
 }
 
 export function fetchGetphoto(id) {
-	return http.get("http://localhost:8081/getPhoto", { params: { pId: id } });
+	return http.get("/api/getPhoto", { params: { pId: id } });
+	// return http.get("http://localhost:8081/getPhoto", { params: { pId: id } });
 }
+
+// function FetchUrl(url) {
+// 	return "http://localhost:8081" + url;
+// }

@@ -14,7 +14,12 @@
 		// props: ["item"],
 		props: ["id"],
 		created() {
-			this.getPhoto();
+			const photo = this.$store.getters.getPhotoById(this.id);
+			if (photo) {
+				this.item = photo;
+			} else {
+				this.getPhoto();
+			}
 		},
 		data() {
 			return {

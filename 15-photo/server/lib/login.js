@@ -4,7 +4,6 @@ const { getDB } = require("../lib/db");
 module.exports = async ctx => {
 	const { username, password } = ctx.request.body;
 
-	console.log(username, password);
 	const sql = `SELECT * FROM users WHERE username=? AND password=?`;
 	const [row] = await getDB().execute(sql, [username, password]);
 	const userInfo = row[0];
@@ -13,6 +12,10 @@ module.exports = async ctx => {
 		const token = jsonwebtoken.sign({ uId: userInfo.id }, SECRET, {
 			expiresIn: "2h",
 		});
+
+		// ctx.state.user = userInfo;
+		console.log(ctx.state);
+
 		ctx.body = {
 			state: 1,
 			msg: "登录成功",
