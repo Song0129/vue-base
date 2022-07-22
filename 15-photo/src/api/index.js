@@ -13,8 +13,17 @@ export function fetchGetphotos() {
 	return http.get("http://localhost:8081/getPhotos");
 }
 
-export function fetchUpload(img) {
+export function fetchUpload(img, cb) {
 	const data = new FormData();
 	data.append("img", img);
-	return http.post("http://localhost:8081/upload", data);
+	return http.post("http://localhost:8081/upload", data, {
+		onUploadProgress(event) {
+			const val = Math.floor((event.loaded / event.total) * 100);
+			cb && cb(val);
+		},
+	});
+}
+
+export function fetchGetphoto(id) {
+	return http.get("http://localhost:8081/getPhoto", { params: { pId: id } });
 }

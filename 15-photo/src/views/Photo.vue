@@ -14,10 +14,12 @@
 
 			<div class="photoContainer">
 				<template v-for="item in photos">
-					<div class="photoItem" :key="item.id">
-						<img :src="item.imgUrl" />
-						<span> {{ item.name }} </span>
-					</div>
+					<router-link :to="{ name: 'Details', params: { id: item.id } }" :key="item.id">
+						<div class="photoItem">
+							<img :src="item.imgUrl" />
+							<span> {{ item.name }} </span>
+						</div>
+					</router-link>
 				</template>
 			</div>
 		</div>
@@ -32,10 +34,8 @@
 		components: {
 			AddPhotoView,
 		},
-		async created() {
-			const { data } = await fetchGetphotos();
-			console.log(data);
-			this.photos = data.data.photos;
+		created() {
+			this.updatePhotos();
 		},
 		data() {
 			return {
@@ -44,9 +44,12 @@
 			};
 		},
 		methods: {
-			async handleUploadCompleted() {
+			async updatePhotos() {
 				const { data } = await fetchGetphotos();
 				this.photos = data.data.photos;
+			},
+			handleUploadCompleted() {
+				this.updatePhotos();
 			},
 		},
 	};
@@ -294,6 +297,7 @@
 		position: absolute;
 		width: 164px;
 		color: white;
+		line-height: 24px;
 	}
 
 	.plan {
@@ -336,9 +340,9 @@
 	// 	display: none;
 	// }
 
-	.myProgress {
-		display: none;
-	}
+	// .myProgress {
+	// 	display: none;
+	// }
 
 	.fileinput-add {
 		position: relative;

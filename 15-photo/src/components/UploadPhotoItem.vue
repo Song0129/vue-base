@@ -2,8 +2,8 @@
 	<div>
 		<div class="uploadPhotoItem">
 			<span class="myProgress">
-				<span class="plan"></span>
-				30%
+				<span class="plan" :style="{ width: percent + '%' }"></span>
+				{{ percent }}%
 			</span>
 			<img :src="imgUrl" />
 			<span class="pictureName"> {{ item.name }} </span>
@@ -17,6 +17,7 @@
 		data() {
 			return {
 				imgUrl: "",
+				percent: 0,
 			};
 		},
 		created() {
@@ -26,6 +27,11 @@
 				// console.log(render.result);
 				this.imgUrl = render.result;
 			};
+		},
+		methods: {
+			updateProgress(val) {
+				this.percent = val;
+			},
 		},
 	};
 </script>

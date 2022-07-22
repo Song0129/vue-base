@@ -28,7 +28,7 @@
 				<div class="loadContainer" v-show="showLoadContainer">
 					<div class="wantUpload">
 						<template v-for="(item, index) in wantPhotos">
-							<UploadPhotoItem :item="item" :key="index"></UploadPhotoItem>
+							<UploadPhotoItem :item="item" :key="index" ref="items"></UploadPhotoItem>
 						</template>
 					</div>
 					<div class="addStyle">
@@ -67,13 +67,32 @@
 		},
 		methods: {
 			async uploadImg() {
-				for (const photo of this.wantPhotos) {
-					const r = await fetchUpload(photo);
-					console.log("r :>> ", r);
-				}
+				// 串行  一个接一个上传
+				// for (const [index, value] of this.wantPhotos.entries()) {
+				// 	await fetchUpload(value, percent => {
+				// 		console.log(percent);
+				// 		const item = this.$refs.items[index];
+				// 		item.updateProgress(percent);
+				// 	});
+				// 	// console.log("r :>> ", r);
+				// }
+
+				// 并行  一起上传
+				const tasks = this.wantPhotos.map((val, index) => {
+					return fetchUpload(val, percent => {
+						const item = this.$refs.items[index];
+						item.updateProgress(percent);
+					});
+				});
+
+				await Promise.all(tasks);
+
 				// 1. 不要重复
 				// 2. 表达出代码的意图
 				this.reset();
+				this.uploadCompleted();
+			},
+			uploadCompleted() {
 				this.$emit("upload-completed");
 			},
 			reset() {
@@ -83,9 +102,9 @@
 				this.$emit("update:visible", false);
 			},
 			addImg(event) {
-				console.log(event.target.files);
+				// console.log(event.target.files);
 				this.wantPhotos.push(...event.target.files);
-				console.log("wantPhotos :>> ", this.wantPhotos);
+				// console.log("wantPhotos :>> ", this.wantPhotos);
 			},
 		},
 	};
