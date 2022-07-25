@@ -8,12 +8,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		token: localStorage.getItem("token") || "",
+		username: localStorage.getItem("username") || "",
 		photos: [],
 	},
 	mutations: {
 		login(state, payload) {
 			state.token = payload.token;
+			state.username = payload.username;
 			localStorage.setItem("token", payload.token);
+			localStorage.setItem("username", payload.username);
 		},
 		updatePhotos(state, payload) {
 			state.photos = payload.photos;
@@ -24,9 +27,8 @@ export default new Vuex.Store({
 		async login({ commit }, payload) {
 			const { username, password } = payload;
 			const { data } = await fetchLogin({ username, password });
-			console.log(data);
 			if (data.data.token) {
-				commit("login", { token: data.data.token });
+				commit("login", { token: data.data.token, username: data.data.username });
 			}
 		},
 		async updatePhotos({ commit }) {

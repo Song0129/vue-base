@@ -7,6 +7,7 @@ module.exports = async ctx => {
 	const sql = `SELECT * FROM users WHERE username=? AND password=?`;
 	const [row] = await getDB().execute(sql, [username, password]);
 	const userInfo = row[0];
+	console.log(userInfo);
 	if (userInfo) {
 		//登录成功
 		const token = jsonwebtoken.sign({ uId: userInfo.id }, SECRET, {
@@ -20,6 +21,7 @@ module.exports = async ctx => {
 			state: 1,
 			msg: "登录成功",
 			data: {
+				username,
 				token,
 			},
 		};

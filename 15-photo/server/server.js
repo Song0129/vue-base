@@ -10,13 +10,13 @@ const db = require("./lib/db");
 const koaJwt = require("koa-jwt");
 const { SECRET } = require("./lib/config");
 
-// const cors = require("koa2-cors");
+const cors = require("koa2-cors");
 
 db.initDB();
 
 const app = new Koa();
 // 处理跨域问题
-// app.use(cors({}));
+app.use(cors({}));
 
 app.use(
 	koaBody({

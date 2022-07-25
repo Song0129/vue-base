@@ -4,10 +4,10 @@
 		<div class="container">
 			<div class="photoHeader">
 				<div class="imgContainer">
-					<img class="photoName" src="public/img/1.jpg" />
+					<img class="photoName" src="../../public/img/1.jpg" />
 				</div>
 				<div class="btnContainer">
-					<span class="photoTitle">相册名称</span>
+					<span class="photoTitle">{{ username }}的相册</span>
 					<button class="mybtn" @click="showAddPhotoView = true">上传照片</button>
 				</div>
 			</div>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+	import { mapState } from "vuex";
 	import AddPhotoView from "../components/AddPhotoView.vue";
 	export default {
 		components: {
@@ -35,6 +36,7 @@
 		},
 		created() {
 			this.updatePhotos();
+			console.log(this.username);
 		},
 		data() {
 			return {
@@ -42,9 +44,7 @@
 			};
 		},
 		computed: {
-			photos() {
-				return this.$store.state.photos;
-			},
+			...mapState(["photos", "username"]),
 		},
 		methods: {
 			updatePhotos() {
@@ -73,8 +73,8 @@
 	}
 
 	.photoName {
-		width: 70px;
-		height: 70px;
+		width: 100%;
+		height: 100%;
 		margin: 0px;
 	}
 
@@ -157,8 +157,9 @@
 		background: white;
 		opacity: 1;
 		position: absolute;
-		left: 10%;
-		top: 60px;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 		display: flex;
 		flex-direction: column;
 		border-radius: 5px;

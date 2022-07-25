@@ -8,8 +8,8 @@
 				<div class="photoTitles">
 					<span class="uploadTo">上传到</span>
 					<div class="photoSelect">
-						<img class="showPhoto" src="public/img/1.jpg" />
-						相册名称
+						<img class="showPhoto" src="../../public/img/1.jpg" />
+						{{ username }}相册名称
 					</div>
 				</div>
 
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+	import { mapState } from "vuex";
 	import UploadPhotoItem from "../components/UploadPhotoItem.vue";
 	import { fetchUpload } from "../api/index";
 	export default {
@@ -61,6 +62,7 @@
 			};
 		},
 		computed: {
+			...mapState(["username"]),
 			showLoadContainer() {
 				return this.wantPhotos.length;
 			},
