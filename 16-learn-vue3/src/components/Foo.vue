@@ -3,14 +3,20 @@
 		<div>{{ count }}<button @click="handleCount">click</button></div>
 	</div>
 	<div>
-		<div>{{ user.name }}--{{ user.age }}<button @click="handleChangeAge">click</button></div>
+		<div>user:{{ user.name }}--{{ user.age }} readonlyUser:{{ readonlyUser.age }} <button @click="handleChangeAge">click</button></div>
 	</div>
 </template>
 
 <script>
-	import { ref, reactive } from "vue";
+	import { ref, reactive, readonly } from "vue";
 	export default {
-		setup() {
+		props: ["title"],
+		setup(props) {
+			// props
+			// setup -> not this
+			// 不能使用这种方式 this.$props
+			console.log(props);
+			// props.title = "haha";
 			// count
 			// 1 false "" -> 值类型  无法判断变化
 			let count = ref(1);
@@ -37,7 +43,15 @@
 
 			function handleChangeAge() {
 				user.age++;
+				readonlyUser.age++;
 			}
+
+			// 依赖注入的话 传值给子组件
+			// provide/inject
+			const readonlyUser = readonly({
+				name: "tom",
+				age: 19,
+			});
 
 			// ref  vs reactive
 			// const obj = {
@@ -49,6 +63,7 @@
 			// const age = 19;
 
 			return {
+				readonlyUser,
 				count,
 				handleCount,
 				user,
