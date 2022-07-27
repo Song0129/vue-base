@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div>{{ count }}<button @click="handleCount">click</button></div>
+		<div>count: {{ count }} --- double: {{ double }}<button @click="handleCount">click</button></div>
 	</div>
 	<div>
 		<div>user:{{ user.name }}--{{ user.age }} readonlyUser:{{ readonlyUser.age }} <button @click="handleChangeAge">click</button></div>
@@ -8,7 +8,8 @@
 </template>
 
 <script>
-	import { ref, reactive, readonly } from "vue";
+	import { ref, reactive, readonly, computed, watch } from "vue";
+	import _ from "lodash";
 	export default {
 		props: ["title"],
 		setup(props) {
@@ -62,7 +63,41 @@
 			// const name = "tom";
 			// const age = 19;
 
+			const double = computed(() => {
+				return count.value * 2;
+			});
+
+			console.log(double);
+
+			// console.log("lodash", _.cloneDeep);
+
+			watch(
+				count,
+				(newVal, oldVal) => {
+					console.log("count - watch", newVal, oldVal);
+				},
+				{
+					immediate: true,
+				}
+			);
+
+			// object -> value
+			watch(
+				() => user.age,
+				(newVal, oldVal) => {
+					console.log("user.age - watch", newVal, oldVal);
+				}
+			);
+
+			watch(
+				() => _.cloneDeep(user),
+				(newVal, oldVal) => {
+					console.log("user - watch", newVal, oldVal);
+				}
+			);
+
 			return {
+				double,
 				readonlyUser,
 				count,
 				handleCount,
