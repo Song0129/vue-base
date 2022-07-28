@@ -4,12 +4,14 @@
 	<Foo title="heihei"></Foo>
 	<Bar v-if="showBar"></Bar>
 	<button @click="hideBar">hideBar</button>
+	<Baz v-if="showBar"></Baz>
 </template>
 
 <script>
 	// import HelloWorld from "./components/HelloWorld.vue";
 	import Foo from "./components/Foo.vue";
 	import Bar from "./components/Bar.vue";
+	import Baz from "./components/Baz.vue";
 	import { ref } from "vue";
 	export default {
 		name: "App",
@@ -17,6 +19,7 @@
 			// HelloWorld,
 			Foo,
 			Bar,
+			Baz,
 		},
 		setup() {
 			const showBar = ref(true);
