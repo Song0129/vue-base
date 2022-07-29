@@ -12,7 +12,7 @@
 	import Foo from "./components/Foo.vue";
 	import Bar from "./components/Bar.vue";
 	import Baz from "./components/Baz.vue";
-	import { ref } from "vue";
+	import { ref, provide } from "vue";
 	export default {
 		name: "App",
 		components: {
@@ -27,6 +27,10 @@
 			function hideBar() {
 				showBar.value = false;
 			}
+
+			provide("app", "app.vue");
+			const appRef = ref("app-ref.vue");
+			provide("app-ref", appRef);
 
 			return {
 				showBar,
