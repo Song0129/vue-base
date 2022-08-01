@@ -3,11 +3,13 @@
 		baz
 		<div>count:{{ count }} <button @click="handlePlus">click</button></div>
 		<div>app: {{ app }} <button @click="changeApp">change app</button>appRef: {{ appRef }} <button @click="changeAppRef">change app ref</button></div>
+		baz:<input type="text" ref="input" />
 	</div>
 </template>
 
 <script>
 	import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted, inject } from "vue";
+	import { watchEffect } from "vue";
 	export default {
 		setup() {
 			const count = ref(0);
@@ -63,6 +65,14 @@
 				console.log("changeAppRef:", appRef.value);
 			}
 
+			const input = ref(null);
+
+			// onMounted(() => {
+			// 	console.log("onMounted", input.value);
+			// });
+
+			watchEffect(() => {});
+
 			return {
 				count,
 				handlePlus,
@@ -70,6 +80,7 @@
 				changeApp,
 				appRef,
 				changeAppRef,
+				input,
 			};
 		},
 	};
