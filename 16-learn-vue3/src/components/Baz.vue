@@ -4,12 +4,29 @@
 		<div>count:{{ count }} <button @click="handlePlus">click</button></div>
 		<div>app: {{ app }} <button @click="changeApp">change app</button>appRef: {{ appRef }} <button @click="changeAppRef">change app ref</button></div>
 		baz:<input type="text" ref="input" />
+
+		<div>
+			<ul>
+				<li
+					v-for="(user, i) in users"
+					:key="i"
+					:ref="
+						el => {
+							if (el) lis[i] = el;
+						}
+					"
+				>
+					{{ user.name }}
+				</li>
+			</ul>
+		</div>
 	</div>
 </template>
 
 <script>
 	import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted, inject } from "vue";
 	import { watchEffect } from "vue";
+	import { reactive } from "vue";
 	export default {
 		setup() {
 			const count = ref(0);
@@ -71,7 +88,22 @@
 			// 	console.log("onMounted", input.value);
 			// });
 
-			watchEffect(() => {});
+			watchEffect(
+				() => {
+					console.log("watch - effect - baz.vue", input.value);
+				},
+				{
+					flush: "post",
+				}
+			);
+
+			const users = reactive([{ name: "tom" }, { name: "jerry" }]);
+
+			const lis = ref([]);
+
+			onMounted(() => {
+				console.log("lis value", lis.value);
+			});
 
 			return {
 				count,
@@ -81,6 +113,8 @@
 				appRef,
 				changeAppRef,
 				input,
+				lis,
+				users,
 			};
 		},
 	};
