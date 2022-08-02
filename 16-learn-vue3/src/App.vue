@@ -1,6 +1,7 @@
 <template>
 	<!-- <img alt="Vue logo" src="./assets/logo.png"> -->
 	<!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+	<div>x:{{ x }}---y:{{ y }}</div>
 	<Foo title="heihei"></Foo>
 	<Bar v-if="showBar"></Bar>
 	<button @click="hideBar">hideBar</button>
@@ -13,8 +14,11 @@
 	import Bar from "./components/Bar.vue";
 	import Baz from "./components/Baz.vue";
 	import { ref, provide } from "vue";
+	import MouseMoveMixin from "./MouseMoveMixin.js";
+
 	export default {
 		name: "App",
+		mixins: [MouseMoveMixin],
 		components: {
 			// HelloWorld,
 			Foo,
