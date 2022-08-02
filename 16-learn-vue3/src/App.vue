@@ -1,7 +1,18 @@
 <template>
 	<!-- <img alt="Vue logo" src="./assets/logo.png"> -->
 	<!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-	<div>x:{{ x }}---y:{{ y }}</div>
+	<div>
+		<p>mixin</p>
+		x:{{ x }}---y:{{ y }}
+	</div>
+	<div>
+		<p>component slot</p>
+		<MouseMove v-slot="{ x, y }"> x:{{ x }}---y:{{ y }} </MouseMove>
+	</div>
+	<div>
+		<p>composition api</p>
+		x:{{ XX }}---y:{{ YY }}
+	</div>
 	<Foo title="heihei"></Foo>
 	<Bar v-if="showBar"></Bar>
 	<button @click="hideBar">hideBar</button>
@@ -15,15 +26,20 @@
 	import Baz from "./components/Baz.vue";
 	import { ref, provide } from "vue";
 	import MouseMoveMixin from "./MouseMoveMixin.js";
+	import MouseMove from "./components/MouseMove.vue";
+	import { userMouseMove } from "./userMouseMove.js";
 
 	export default {
 		name: "App",
+		// 1.多个mixin时  来源不清晰
+		// 2.别的mixin导出同样的变量  变量重复、覆盖
 		mixins: [MouseMoveMixin],
 		components: {
 			// HelloWorld,
 			Foo,
 			Bar,
 			Baz,
+			MouseMove,
 		},
 		setup() {
 			const showBar = ref(true);
@@ -36,9 +52,13 @@
 			const appRef = ref("app-ref.vue");
 			provide("app-ref", appRef);
 
+			const { x: XX, y: YY } = userMouseMove();
+
 			return {
 				showBar,
 				hideBar,
+				XX,
+				YY,
 			};
 		},
 	};
