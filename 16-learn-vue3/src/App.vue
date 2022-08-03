@@ -24,7 +24,7 @@
 	import Foo from "./components/Foo.vue";
 	import Bar from "./components/Bar.vue";
 	import Baz from "./components/Baz.vue";
-	import { ref, provide } from "vue";
+	import { ref, provide, toRefs } from "vue";
 	import MouseMoveMixin from "./MouseMoveMixin.js";
 	import MouseMove from "./components/MouseMove.vue";
 	import { userMouseMove } from "./userMouseMove.js";
@@ -52,7 +52,14 @@
 			const appRef = ref("app-ref.vue");
 			provide("app-ref", appRef);
 
-			const { x: XX, y: YY } = userMouseMove();
+			// const { x: XX, y: YY } = userMouseMove();
+			// console.log(XX, YY);
+
+			const { position } = userMouseMove();
+			console.log("-------------");
+			console.log(position);
+			const { x: XX, y: YY } = toRefs(position);
+			console.log(XX, YY);
 
 			return {
 				showBar,
