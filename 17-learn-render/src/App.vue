@@ -1,10 +1,14 @@
 <template>
-	<div>123</div>
+	<rect :x="100" :y="100"><Circle x="10" y="10"></Circle></rect>
 </template>
 
 <script>
+	import Circle from "./components/Circle.vue";
 	export default {
 		name: "App",
+		components: {
+			Circle,
+		},
 	};
 </script>
 
