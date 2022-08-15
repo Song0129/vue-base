@@ -24,8 +24,22 @@
 					x: Math.floor(Math.random() * 442) + 50,
 					y: -100,
 					speed, // Math.floor(Math.random() * 10) + 5,
+					width: 308,
+					height: 207,
+					HP: 2,
 				});
 			}, 1000);
+		}
+
+		function hit(enemy, enemyIndex) {
+			enemy.HP--;
+			if (enemy.HP <= 0) {
+				distoryEnemy(enemyIndex);
+			}
+		}
+
+		function distoryEnemy(index) {
+			enemys.splice(index, 1);
 		}
 
 		function move() {
@@ -50,7 +64,7 @@
 		createEnemy();
 		move();
 
-		return { enemys };
+		return { enemys, distoryEnemy, hitEnemy: hit };
 	}
 </script>
 

@@ -17,6 +17,8 @@
 		const planeInfo = reactive({
 			x: 250,
 			y: 600,
+			width: 258,
+			height: 364,
 		});
 
 		// move

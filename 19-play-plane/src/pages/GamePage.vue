@@ -12,6 +12,8 @@
 	import Plane, { usePlane } from "../components/Plane.vue";
 	import Enemy, { useEnemy } from "../components/Enemy.vue";
 	import Bullet, { useBullet } from "../components/Bullet.vue";
+	import { useFighting } from "./fighting";
+
 	export default {
 		components: {
 			Map,
@@ -19,15 +21,21 @@
 			Enemy,
 			Bullet,
 		},
-		setup() {
+		setup(props, { emit }) {
 			const { planeInfo } = usePlane({
 				onAttack(position) {
 					console.log(position);
 					addBullet(position);
 				},
 			});
-			const { enemys } = useEnemy();
-			const { bullets, addBullet } = useBullet();
+			const { enemys, distoryEnemy, hitEnemy } = useEnemy();
+			const { bullets, addBullet, distoryBullet } = useBullet();
+
+			const gameover = () => {
+				emit("change-page", "EndPage");
+			};
+
+			useFighting({ gameover, enemys, bullets, planeInfo, distoryBullet, distoryEnemy, hitEnemy });
 
 			return {
 				planeInfo,

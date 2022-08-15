@@ -31,7 +31,6 @@ const renderer = createRenderer({
 				break;
 			case "onClick":
 				el.on("pointertap", nextValue);
-				console.log(nextValue);
 				break;
 			default:
 				el[key] = nextValue;

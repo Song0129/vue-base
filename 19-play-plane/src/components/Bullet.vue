@@ -18,7 +18,11 @@
 		const bullets = reactive([]);
 
 		function addBullet(position) {
-			bullets.push({ ...position });
+			bullets.push({ width: 61, height: 99, ...position });
+		}
+
+		function distoryBullet(index) {
+			bullets.splice(index, 1);
 		}
 
 		function move() {
@@ -44,6 +48,7 @@
 		return {
 			bullets,
 			addBullet,
+			distoryBullet,
 		};
 	}
 </script>
