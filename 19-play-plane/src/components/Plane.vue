@@ -15,8 +15,8 @@
 
 	export function usePlane() {
 		const planeInfo = reactive({
-			x: 100,
-			y: 100,
+			x: 250,
+			y: 600,
 		});
 
 		// move

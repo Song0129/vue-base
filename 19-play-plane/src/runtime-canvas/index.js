@@ -3,7 +3,7 @@ import { Container, Sprite, Texture } from "pixi.js";
 
 const renderer = createRenderer({
 	createElement(type) {
-		console.log("createElement--->>", type);
+		// console.log("createElement--->>", type);
 		let element;
 		switch (type) {
 			case "container":
@@ -46,6 +46,7 @@ const renderer = createRenderer({
 			el.parent.removeChild(el);
 		}
 	},
+	createText() {},
 	createComment() {},
 	nextSibling() {},
 });
