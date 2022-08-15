@@ -5,4 +5,9 @@ export default {
 			return Math.floor(Math.random() * 10) + 5;
 		},
 	},
+	plane: {
+		bullet: {
+			speed: 10,
+		},
+	},
 };

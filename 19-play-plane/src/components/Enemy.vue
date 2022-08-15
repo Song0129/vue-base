@@ -14,15 +14,16 @@
 	};
 
 	export function useEnemy() {
-		const enemys = new reactive([]);
+		const enemys = reactive([]);
 
 		// 1s 创建一个飞机
 		function createEnemy() {
+			const speed = typeof config.enemy.speed === "function" ? config.enemy.speed() : config.enemy.speed;
 			setInterval(() => {
 				enemys.push({
-					x: Math.floor(Math.random() * 500) + 50,
+					x: Math.floor(Math.random() * 442) + 50,
 					y: -100,
-					speed: typeof config.enemy.speed === "function" ? config.enemy.speed() : config.enemy.speed, // Math.floor(Math.random() * 10) + 5,
+					speed, // Math.floor(Math.random() * 10) + 5,
 				});
 			}, 1000);
 		}
