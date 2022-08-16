@@ -19,8 +19,8 @@
 			EndPage,
 		},
 		setup() {
-			// const currentPage = ref("StartPage");
-			const currentPage = ref("GamePage");
+			const currentPage = ref("StartPage");
+			// const currentPage = ref("GamePage");
 			// const currentPage = ref("EndPage");
 
 			const handleChangePage = pageName => {
