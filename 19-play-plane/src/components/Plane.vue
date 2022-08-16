@@ -5,6 +5,7 @@
 <script>
 	import { reactive, onMounted, onUnmounted } from "vue";
 	import PlaneImg from "../assets/plane.png";
+	import { planeMove } from "./planeMove";
 	export default {
 		setup() {
 			return {
@@ -20,36 +21,6 @@
 			width: 258,
 			height: 364,
 		});
-
-		// move
-		function move() {
-			const speed = 10;
-			function handleMove(e) {
-				// console.log(e.code);
-				switch (e.code) {
-					case "ArrowUp":
-						planeInfo.y -= speed;
-						break;
-					case "ArrowDown":
-						planeInfo.y += speed;
-						break;
-					case "ArrowLeft":
-						planeInfo.x -= speed;
-						break;
-					case "ArrowRight":
-						planeInfo.x += speed;
-						break;
-				}
-			}
-
-			onMounted(() => {
-				window.addEventListener("keyup", handleMove);
-			});
-
-			onUnmounted(() => {
-				window.removeEventListener("keyup", handleMove);
-			});
-		}
 
 		function attack() {
 			function handleAttack(e) {
@@ -71,7 +42,8 @@
 			});
 		}
 
-		move();
+		// move
+		planeMove(planeInfo);
 		attack();
 
 		return {

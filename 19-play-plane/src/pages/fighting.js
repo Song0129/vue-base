@@ -11,7 +11,6 @@ export function useFighting({
 	// distoryEnemy,
 	hitEnemy,
 }) {
-	console.log(1);
 	// fighting
 	function handleTicker() {
 		// 我方飞机和地方飞机的碰撞

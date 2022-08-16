@@ -62,7 +62,7 @@
 		}
 
 		createEnemy();
-		move();
+		// move();
 
 		return { enemys, distoryEnemy, hitEnemy: hit };
 	}
