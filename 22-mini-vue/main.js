@@ -50,7 +50,7 @@ const App = {
 	// template -> render
 	render(context) {
 		// ui
-		effeoctWatch(() => {
+		effectWatch(() => {
 			// 1. 每次删除所有节点 -> 优化
 			// 2. 跨平台的问题
 			document.querySelector("#app").textContent = "";
