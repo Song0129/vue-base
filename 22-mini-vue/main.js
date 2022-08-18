@@ -27,12 +27,52 @@ import { Dep, effectWatch, reactive } from "./core/index.js";
 
 // {} -> reactive
 
-const user = reactive({ age: 10 });
+// const user = reactive({ age: 10 });
 
-let nextAge = 0;
-effectWatch(() => {
-	nextAge = user.age + 1;
-	console.log(nextAge);
-});
+// let nextAge = 0;
+// effectWatch(() => {
+// 	nextAge = user.age + 1;
+// 	console.log(nextAge);
+// });
 
-user.age++;
+// user.age++;
+
+// const context = reactive({
+// 	count: 0,
+// });
+
+// window.obj = obj;
+// effectWatch(() => {
+// 	// ui
+// });
+
+const App = {
+	// template -> render
+	render(context) {
+		// ui
+		effeoctWatch(() => {
+			// 1. 每次删除所有节点 -> 优化
+			// 2. 跨平台的问题
+			document.querySelector("#app").textContent = "";
+			const element = document.createElement("div");
+			const text = document.createTextNode("hello,");
+			const text1 = document.createTextNode(context.obj.count);
+			element.append(text);
+			element.append(text1);
+			document.querySelector("#app").append(element);
+		});
+	},
+	setup() {
+		const obj = reactive({
+			count: 1,
+		});
+
+		window.obj = obj;
+
+		return {
+			obj,
+		};
+	},
+};
+
+App.render(App.setup());

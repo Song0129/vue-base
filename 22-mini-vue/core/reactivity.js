@@ -18,7 +18,7 @@ export class Dep {
 	depend() {
 		if (currentEffect) {
 			this.effects.add(currentEffect);
-			console.log(this.effects);
+			// console.log(this.effects);
 		}
 	}
 
@@ -41,7 +41,7 @@ const targetsMap = new Map();
 export function reactive(raw) {
 	return new Proxy(raw, {
 		get(target, key) {
-			console.log(target, key);
+			// console.log(target, key);
 			let dep = getDep(target, key);
 			dep.depend();
 
