@@ -5,11 +5,13 @@ export class Dep {
 	}
 
 	get value() {
+		this.depend();
 		return this._val;
 	}
 
 	set value(val) {
 		this._val = val;
+		this.notice();
 	}
 
 	// 收集依赖
