@@ -14,7 +14,8 @@ export default {
 
 		// return element;
 
-		return h("div", {}, [h("p", {}, "hello"), h("p", {}, context.obj.count)]);
+		return h("div", { id: "box", class: "test" }, [h("p", {}, "hello"), h("p", {}, String(context.obj.count))]);
+		// return h("div", { id: "box", class: "test" }, "hello");
 	},
 	setup() {
 		const obj = reactive({
