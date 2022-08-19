@@ -46,33 +46,7 @@ import { Dep, effectWatch, reactive } from "./core/index.js";
 // 	// ui
 // });
 
-const App = {
-	// template -> render
-	render(context) {
-		// ui
-		effectWatch(() => {
-			// 1. 每次删除所有节点 -> 优化
-			// 2. 跨平台的问题
-			document.querySelector("#app").textContent = "";
-			const element = document.createElement("div");
-			const text = document.createTextNode("hello,");
-			const text1 = document.createTextNode(context.obj.count);
-			element.append(text);
-			element.append(text1);
-			document.querySelector("#app").append(element);
-		});
-	},
-	setup() {
-		const obj = reactive({
-			count: 1,
-		});
-
-		window.obj = obj;
-
-		return {
-			obj,
-		};
-	},
-};
-
-App.render(App.setup());
+// App.render(App.setup());
+import { createApp } from "./core/index.js";
+import App from "./App.js";
+createApp(App).mount(document.querySelector("#app"));
