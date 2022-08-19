@@ -1,4 +1,4 @@
-import { reactive } from "./core/index.js";
+import { reactive, h } from "./core/index.js";
 export default {
 	// template -> render
 	render(context) {
@@ -6,13 +6,15 @@ export default {
 		// 1. 每次删除所有节点 -> 优化
 		// 2. 跨平台的问题
 
-		const element = document.createElement("div");
-		const text = document.createTextNode("hello,");
-		const text1 = document.createTextNode(context.obj.count);
-		element.append(text);
-		element.append(text1);
+		// const element = document.createElement("div");
+		// const text = document.createTextNode("hello,");
+		// const text1 = document.createTextNode(context.obj.count);
+		// element.append(text);
+		// element.append(text1);
 
-		return element;
+		// return element;
+
+		return h("div", {}, [h("p", {}, "hello"), h("p", {}, context.obj.count)]);
 	},
 	setup() {
 		const obj = reactive({
